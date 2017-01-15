@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from flask.ext.cors import CORS
+from flask_cors import CORS
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 import urllib.request, urllib.parse
@@ -110,17 +110,20 @@ app = Flask(__name__)
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-english_bot = ChatBot("English Bot", logic_adapters=(
-    {
-        'import_path': 'chat_bot.MyLogicAdapter'
-    },
-    {
-        "import_path": "chatterbot.logic.MathematicalEvaluation"
-    },
-    {
-        "import_path": "chatterbot.logic.MathematicalEvaluation"
-    },
-))
+english_bot = ChatBot("English Bot",
+                      storage_adapter="chatterbot.storage.MongoDatabaseAdapter",
+                      database_uri="mongodb://heroku_hmfh969q:19ti5ecof2hihkhq5vl60qq7fu@ds111489.mlab.com:11489/heroku_hmfh969q",
+                      logic_adapters=(
+                          {
+                              'import_path': 'chat_bot.MyLogicAdapter'
+                          },
+                          {
+                              "import_path": "chatterbot.logic.MathematicalEvaluation"
+                          },
+                          {
+                              "import_path": "chatterbot.logic.MathematicalEvaluation"
+                          },
+                      ))
 english_bot.set_trainer(ChatterBotCorpusTrainer)
 english_bot.train("chatterbot.corpus.english")
 # Train based on english greetings corpus
