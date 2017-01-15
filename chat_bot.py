@@ -112,7 +112,8 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 english_bot = ChatBot("English Bot",
                       storage_adapter="chatterbot.storage.MongoDatabaseAdapter",
-                      database_uri="mongodb://chat:admin123@ds111489.mlab.com:11489/heroku_hmfh969q",
+                      database_uri="mongodb://chat:admin123@ds111489.mlab.com:11489",
+                      database="heroku_hmfh969q",
                       logic_adapters=(
                           {
                               'import_path': 'chat_bot.MyLogicAdapter'
