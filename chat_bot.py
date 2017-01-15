@@ -156,12 +156,12 @@ def home():
 
     # send user's message
     data = urllib.parse.urlencode({"text": query, "sender": "user"}).encode()
-    req = urllib.request.Request("http://127.0.0.1:8000/discover/chat/%s/add" % chat_key, data=data)
+    req = urllib.request.Request("https://memeconnect.herokuapp.com/discover/chat/%s/add" % chat_key, data=data)
     resp = urllib.request.urlopen(req)
 
     # Send meme cat's message
     data = urllib.parse.urlencode({"text": response, "sender": "memecat"}).encode()
-    req = urllib.request.Request("http://127.0.0.1:8000/discover/chat/%s/add" % chat_key, data=data)
+    req = urllib.request.Request("https://memeconnect.herokuapp.com/discover/chat/%s/add" % chat_key, data=data)
     resp = urllib.request.urlopen(req)
 
     return jsonify(**d)
