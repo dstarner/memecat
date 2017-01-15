@@ -140,6 +140,11 @@ english_bot.train([""])
 @app.route("/", methods=["POST"])
 def home():
     json = request.get_json()
+
+    if not "message" in json or "chat_key" in json:
+        d = {"response": "error", "message": "Missing the right keys!"}
+        return jsonify(**d)
+
     query = json["message"]
     response = str(english_bot.get_response(query))
     d = {"response": response}
